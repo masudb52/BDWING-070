@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OK Win Clone</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #101010; color: white; }
+    .header { background: #1e1e1e; padding: 20px; text-align: center; font-size: 24px; color: #f1c40f; }
+    .nav { display: flex; justify-content: space-around; background: #2c2c2c; padding: 10px; }
+    .nav a { color: white; text-decoration: none; padding: 8px 16px; }
+    .nav a:hover { background: #444; border-radius: 4px; }
+    .content { padding: 20px; text-align: center; }
+    .box { background: #1e1e1e; padding: 20px; border-radius: 8px; max-width: 300px; margin: 20px auto; }
+    input[type="text"], input[type="password"], input[type="number"] { width: 100%; padding: 10px; margin: 10px 0; border-radius: 4px; border: none; }
+    button { background: #f1c40f; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; }
+    button:hover { background: #d4ac0d; }
+    .balance { margin-top: 10px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="header">OK Win Clone</div>
+  <div class="nav">
+    <a href="#home">Home</a>
+    <a href="#login">Login</a>
+    <a href="#games">Games</a>
+    <a href="#wallet">Wallet</a>
+  </div>
+
+  <div class="content" id="home">
+    <h2>Welcome to OK Win Clone</h2>
+    <p>This is a basic version of a betting platform UI.</p>
+  </div>
+
+  <div class="content" id="login">
+    <div class="box">
+      <h3>Login</h3>
+      <input type="text" id="username" placeholder="Username">
+      <input type="password" id="password" placeholder="Password">
+      <button onclick="login()">Login</button>
+    </div>
+  </div>
+
+  <div class="content" id="games">
+    <div class="box">
+      <h3>Games</h3>
+      <p>Coming Soon: Teen Patti, Slots, and more!</p>
+    </div>
+  </div>
+
+  <div class="content" id="wallet">
+    <div class="box">
+      <h3>Wallet</h3>
+      <div class="balance">Balance: $<span id="balance">0</span></div>
+      <input type="number" id="amount" placeholder="Enter amount">
+      <button onclick="deposit()">Deposit</button>
+      <button onclick="withdraw()">Withdraw</button>
+    </div>
+  </div>
+
+  <script>
+    let balance = localStorage.getItem('balance') || 0;
+    document.getElementById('balance').innerText = balance;
+
+    function login() {
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
+      alert("Logged in as: " + user);
+    }
+
+    function deposit() {
+      let amount = parseFloat(document.getElementById('amount').value);
+      if (!isNaN(amount) && amount > 0) {
+        balance = parseFloat(balance) + amount;
+        localStorage.setItem('balance', balance);
+        document.getElementById('balance').innerText = balance;
+      } else {
+        alert("Enter valid amount");
+      }
+    }
+
+    function withdraw() {
+      let amount = parseFloat(document.getElementById('amount').value);
+      if (!isNaN(amount) && amount > 0 && amount <= balance) {
+        balance = parseFloat(balance) - amount;
+        localStorage.setItem('balance', balance);
+        document.getElementById('balance').innerText = balance;
+      } else {
+        alert("Invalid amount or insufficient balance");
+      }
+    }
+  </script>
+</body>
+</html>
